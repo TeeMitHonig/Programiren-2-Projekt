@@ -17,9 +17,10 @@ public class Main {
         ArrayList<Filme> filme = new ArrayList<>();
         ArrayList<Regisur> regisure = new ArrayList<>();
         ArrayList<Schauspieler> schauspieler = new ArrayList<>();
-        String filepath = null;
+        String filepath = ".//movieproject2024.db";
 
-        Reader.read(filepath,filme,regisure,schauspieler);
+        Reader reader = new Reader();
+        reader.read(filepath,filme,regisure,schauspieler);
 
     }
 

@@ -2,16 +2,11 @@ package src.personen;
 
 public class Person {
     private String name;
-    private String nachname;
     private int id;
-    boolean istregisur;
 
-
-    public Person(String name, String nachname, int id, boolean istregisur) {
+    public Person(String name, int id) {
         this.name = name;
-        this.nachname = nachname;
         this.id = id;
-        this.istregisur = istregisur;
     }
 
     public String getName() {
@@ -22,14 +17,6 @@ public class Person {
         this.name = name;
     }
 
-    public String getNachname() {
-        return nachname;
-    }
-
-    public void setNachname(String nachname) {
-        this.nachname = nachname;
-    }
-
     public int getId() {
         return id;
     }
@@ -38,7 +25,4 @@ public class Person {
         this.id = id;
     }
 
-    public boolean isIstregisur() {
-        return istregisur;
-    }
 }
