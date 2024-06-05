@@ -44,13 +44,13 @@ public class Reader {
                 filme.add(handleFilminput(line));
                 break;
             case 2:
-
+                regisurs.add(handledirctorinput(line));
                 break;
             case 3:
-
+                addFilmSchauspilerbezihung(line,filme,schauspielers);
                 break;
             case 4:
-
+                addFilmRegisurbezihung();
                 break;
         }
 
@@ -58,13 +58,7 @@ public class Reader {
 
 
     private Schauspieler handleSchauspielerinput(String line){
-        String[] lineparts = line.split("\",\"");
-        //Anpassung der einzelen sting teile
-        lineparts[0] = lineparts[0].substring(1);
-        lineparts[0] = lineparts[0].trim();
-
-        lineparts[1] = lineparts[1].substring(0, lineparts[1].length() - 1);
-        lineparts[1] = lineparts[1].trim();
+        String[] lineparts = trimline(line);
         try {
             return new Schauspieler(lineparts[1],Integer.parseInt(lineparts[0]));
         }catch (Exception e){
@@ -73,8 +67,50 @@ public class Reader {
         return null;
     }
 
-
+    //TODO EINGESCHEITESS DATUS FORMAT MAYBE
     private Filme handleFilminput(String line){
+        int size;
+        String[] lineparts = trimline(line);
+
+        try {
+            if (lineparts.length != 7) return new Filme(lineparts[1], lineparts[2], lineparts[4], Integer.parseInt(lineparts[0]));
+            else return new Filme(lineparts[1], lineparts[2], lineparts[4], Integer.parseInt(lineparts[0]), new IMDbBewertungen(Double.parseDouble(lineparts[6]), Integer.parseInt(lineparts[5])));
+        }catch (Exception e){
+            System.err.println("Movie : " + lineparts[0] + " Macht Probleme");
+        }
+        return null;
+    }
+
+    private Regisur handledirctorinput(String line){
+        String[] lineparts = trimline(line);
+        try {
+            return new Regisur(lineparts[1],Integer.parseInt(lineparts[0]));
+        }catch (Exception e){
+            System.err.println("Regisur : " + lineparts[0] + " Macht Probleme");
+        }
+        return null;
+    }
+
+    private void addFilmSchauspilerbezihung(String line,ArrayList<Filme> filme,ArrayList<Schauspieler> schauspieler){
+        String[] lineparts = trimline(line);
+        Filme f = findmfilmByID(Integer.parseInt(lineparts[1]),filme);
+
+        if(f != null) {
+            for (Schauspieler s : schauspieler) {
+                if (s.getId() == Integer.parseInt(lineparts[0])) {
+                    f.addBezihungSchauspieler(s);
+                    return;
+                }
+            }
+        }
+    }
+
+    private void addFilmRegisurbezihung(){
+
+
+    }
+
+    private String[] trimline(String line){
         int size;
         String[] lineparts = line.split("\",\"");
 
@@ -86,12 +122,12 @@ public class Reader {
         for(int i = 0; i<size;i++){
             lineparts[i] = lineparts[i].trim();
         }
+        return lineparts;
+    }
 
-        try {
-            if (size != 7) return new Filme(lineparts[1], lineparts[2], lineparts[4], Integer.parseInt(lineparts[0]));
-            else return new Filme(lineparts[1], lineparts[2], lineparts[4], Integer.parseInt(lineparts[0]), new IMDbBewertungen(Double.parseDouble(lineparts[6]), Integer.parseInt(lineparts[5])));
-        }catch (Exception e){
-            System.err.println("Movie : " + lineparts[0] + " Macht Probleme");
+    private Filme findmfilmByID(int id,ArrayList<Filme> filmes){
+        for(Filme f:filmes){
+            if(f.getId() == id) return f;
         }
         return null;
     }

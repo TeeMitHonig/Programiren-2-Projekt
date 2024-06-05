@@ -11,7 +11,7 @@ public class Filme {
     private String ErscheinungsDat; //TODO IN EIN RICHTIGES FORMATwandlen
     private int id;
 
-    private ArrayList<Schauspieler> schauspielers;
+    private ArrayList<Schauspieler> schauspieler;
     private Regisur regisur;
     private src.filme.IMDbBewertungen imdbBewertungen;
 
@@ -24,7 +24,6 @@ public class Filme {
         this.beschreibung = beschreibung;
         ErscheinungsDat = erscheinungsDat;
         this.id = id;
-        this.schauspielers = schauspielers;
         this.regisur = regisur;
         this.imdbBewertungen = imdbBewertungen;
     }
@@ -37,6 +36,11 @@ public class Filme {
         this.regisur = regisur;
         this.imdbBewertungen = imdbBewertungen;
     }
+//TODO DOPPELTE RAUS
+    public void addBezihungSchauspieler(Schauspieler s1){
+        schauspieler.add(s1);
+    };
+
 
     public String getTitel() {
         return titel;
@@ -71,11 +75,11 @@ public class Filme {
     }
 
     public ArrayList<Schauspieler> getSchauspielers() {
-        return schauspielers;
+        return schauspieler;
     }
 
     public void setSchauspielers(ArrayList<Schauspieler> schauspielers) {
-        this.schauspielers = schauspielers;
+        this.schauspieler = schauspielers;
     }
 
     public Regisur getRegisur() {
