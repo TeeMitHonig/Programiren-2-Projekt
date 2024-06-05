@@ -1,6 +1,7 @@
 package src;
 
 import src.filme.Filme;
+import src.filme.IMDbBewertungen;
 import src.personen.Regisur;
 import src.personen.Schauspieler;
 
@@ -38,7 +39,6 @@ public class Reader {
         switch (groupnumber){
             case 0:
                 schauspielers.add(handleSchauspielerinput(line));
-                System.out.println("actorfound");
                 break;
             case 1:
                 filme.add(handleFilminput(line));
@@ -65,15 +65,34 @@ public class Reader {
 
         lineparts[1] = lineparts[1].substring(0, lineparts[1].length() - 1);
         lineparts[1] = lineparts[1].trim();
-        return new Schauspieler(lineparts[1],Integer.parseInt(lineparts[0]));
+        try {
+            return new Schauspieler(lineparts[1],Integer.parseInt(lineparts[0]));
+        }catch (Exception e){
+            System.err.println("Schauspieler : " + lineparts[0] + " Macht Probleme");
+        }
+        return null;
     }
 
 
     private Filme handleFilminput(String line){
+        int size;
+        String[] lineparts = line.split("\",\"");
 
 
+        lineparts[0] =  lineparts[0].substring(1);
+        size=lineparts.length;
+        lineparts[size-1] = lineparts[size-1].substring(0, lineparts[size-1].length() - 1);
 
+        for(int i = 0; i<size;i++){
+            lineparts[i] = lineparts[i].trim();
+        }
 
-        return new Filme();
+        try {
+            if (size != 7) return new Filme(lineparts[1], lineparts[2], lineparts[4], Integer.parseInt(lineparts[0]));
+            else return new Filme(lineparts[1], lineparts[2], lineparts[4], Integer.parseInt(lineparts[0]), new IMDbBewertungen(Double.parseDouble(lineparts[6]), Integer.parseInt(lineparts[5])));
+        }catch (Exception e){
+            System.err.println("Movie : " + lineparts[0] + " Macht Probleme");
+        }
+        return null;
     }
 }

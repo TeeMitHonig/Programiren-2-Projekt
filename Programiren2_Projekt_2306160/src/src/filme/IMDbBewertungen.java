@@ -1,15 +1,15 @@
 package src.filme;
 
 public class IMDbBewertungen {
-    private int bewertung;
+    private double bewertung;
     private int anzahlBewertungen;
 
-    public IMDbBewertungen(int bewertung, int anzahlBewertungen) {
+    public IMDbBewertungen(double bewertung, int anzahlBewertungen) {
         this.bewertung = bewertung;
         this.anzahlBewertungen = anzahlBewertungen;
     }
 
-    public int getBewertung() {
+    public double getBewertung() {
         return bewertung;
     }
 

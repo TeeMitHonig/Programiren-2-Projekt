@@ -19,47 +19,7 @@ public class Filme {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public Filme(String titel, String beschreibung, String erscheinungsDat, int id,  src.filme.IMDbBewertungen imdbBewertungen) {
+    public Filme(String titel, String beschreibung, String erscheinungsDat, int id,  IMDbBewertungen imdbBewertungen) {
         this.titel = titel;
         this.beschreibung = beschreibung;
         ErscheinungsDat = erscheinungsDat;
