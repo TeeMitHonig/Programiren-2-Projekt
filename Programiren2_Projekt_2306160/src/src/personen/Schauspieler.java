@@ -5,4 +5,7 @@ public class Schauspieler extends Person {
         super(name, id);
 
     }
+
+
+
 }

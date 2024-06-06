@@ -26,6 +26,9 @@ public class Filme {
         this.id = id;
         this.regisur = regisur;
         this.imdbBewertungen = imdbBewertungen;
+
+        schauspieler = new ArrayList<>();
+
     }
 
     public Filme(String titel, String beschreibung, String erscheinungsDat, int id) {
@@ -35,6 +38,7 @@ public class Filme {
         this.id = id;
         this.regisur = regisur;
         this.imdbBewertungen = imdbBewertungen;
+        schauspieler = new ArrayList<>();
     }
 //TODO DOPPELTE RAUS
     public void addBezihungSchauspieler(Schauspieler s1){

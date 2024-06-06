@@ -9,9 +9,11 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.function.Function;
 
 public class Reader {
     private int groupnumber;
+
 
     public  int read(String filePath, ArrayList<Filme> filme , ArrayList<Regisur> regisure , ArrayList<Schauspieler> schauspieler ) {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
@@ -25,12 +27,13 @@ public class Reader {
             System.err.println("Problem beim Lesen der Datei");
         }catch (Exception e){
             System.err.println("Ein unbekannter Fehler ist aufgetreten");
+            e.printStackTrace();
         }
         return 0;
     }
 
 
-    private void handleLine(String line, ArrayList<Schauspieler> schauspielers, ArrayList<Filme> filme,ArrayList<Regisur> regisurs){
+    private void handleLine(String line, ArrayList<Schauspieler> schauspieler, ArrayList<Filme> filme,ArrayList<Regisur> regisur){
         if(line.contains("New_Entity")){
             groupnumber++;
             return;
@@ -38,19 +41,22 @@ public class Reader {
         //TODO WAS NICHT OFFENSICHTLICH IST DOPPELTE RAUS FILTERN
         switch (groupnumber){
             case 0:
-                schauspielers.add(handleSchauspielerinput(line));
+                Schauspieler s = handleSchauspielerinput(line);
+                if(s != null)  addIfNotDuplicate(schauspieler, s, Schauspieler::getId);
                 break;
             case 1:
-                filme.add(handleFilminput(line));
+                Filme f = handleFilminput(line);
+                if(f != null)  addIfNotDuplicate(filme, f, Filme::getId);
                 break;
             case 2:
-                regisurs.add(handledirctorinput(line));
+                Regisur r = handledirctorinput(line);
+                if(r != null)  addIfNotDuplicate(regisur, r, Regisur::getId);
                 break;
             case 3:
-                addFilmSchauspilerbezihung(line,filme,schauspielers);
+                addFilmSchauspilerbezihung(line,filme,schauspieler);
                 break;
             case 4:
-                addFilmRegisurbezihung();
+                addFilmRegisurbezihung(line,filme,regisur);
                 break;
         }
 
@@ -73,8 +79,8 @@ public class Reader {
         String[] lineparts = trimline(line);
 
         try {
-            if (lineparts.length != 7) return new Filme(lineparts[1], lineparts[2], lineparts[4], Integer.parseInt(lineparts[0]));
-            else return new Filme(lineparts[1], lineparts[2], lineparts[4], Integer.parseInt(lineparts[0]), new IMDbBewertungen(Double.parseDouble(lineparts[6]), Integer.parseInt(lineparts[5])));
+            if (lineparts.length == 7 && !lineparts[6].isEmpty()) return new Filme(lineparts[1], lineparts[2], lineparts[4], Integer.parseInt(lineparts[0]), new IMDbBewertungen(Double.parseDouble(lineparts[6]), Integer.parseInt(lineparts[5])));
+            else return new Filme(lineparts[1], lineparts[2], lineparts[4], Integer.parseInt(lineparts[0]));
         }catch (Exception e){
             System.err.println("Movie : " + lineparts[0] + " Macht Probleme");
         }
@@ -94,19 +100,37 @@ public class Reader {
     private void addFilmSchauspilerbezihung(String line,ArrayList<Filme> filme,ArrayList<Schauspieler> schauspieler){
         String[] lineparts = trimline(line);
         Filme f = findmfilmByID(Integer.parseInt(lineparts[1]),filme);
+        try {
 
-        if(f != null) {
-            for (Schauspieler s : schauspieler) {
-                if (s.getId() == Integer.parseInt(lineparts[0])) {
-                    f.addBezihungSchauspieler(s);
-                    return;
+
+            if (f != null) {
+                for (Schauspieler s : schauspieler) {
+                    if (s.getId() == Integer.parseInt(lineparts[0])) {
+                        f.addBezihungSchauspieler(s);
+                        return;
+                    }
                 }
             }
+        }catch (Exception e){
+            System.err.println("Schuaspiler zu Film");
         }
     }
 
-    private void addFilmRegisurbezihung(){
-
+    private void addFilmRegisurbezihung(String line,ArrayList<Filme>filme,ArrayList<Regisur>regisur){
+        String[] lineparts = trimline(line);
+        Filme f = findmfilmByID(Integer.parseInt(lineparts[1]),filme);
+        try {
+            if (f != null) {
+                for (Regisur r : regisur) {
+                    if (r.getId() == Integer.parseInt(lineparts[0])) {
+                        f.setRegisur(r);
+                        return;
+                    }
+                }
+            }
+        }catch (Exception e){
+            System.out.println("Regisures zu Filmen " );
+        }
 
     }
 
@@ -127,8 +151,22 @@ public class Reader {
 
     private Filme findmfilmByID(int id,ArrayList<Filme> filmes){
         for(Filme f:filmes){
+            assert f != null;
             if(f.getId() == id) return f;
         }
         return null;
+    }
+
+    private static <T> void addIfNotDuplicate(ArrayList<T> list, T item, Function<T, Integer> getIdFunc) {
+        boolean isDuplicate = false;
+        for (T element : list) {
+            if (getIdFunc.apply(element).equals(getIdFunc.apply(item))) {
+                isDuplicate = true;
+                break;
+            }
+        }
+        if (!isDuplicate) {
+            list.add(item);
+        }
     }
 }

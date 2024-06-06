@@ -21,7 +21,7 @@ public class Main {
 
         Reader reader = new Reader();
         reader.read(filepath,filme,regisure,schauspieler);
-
+        System.out.println("Fertig ");
     }
 
 
