@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.function.Function;
 
+
+//TODO SORTIERTES EINFÜGEN UND DANN BINARYSEARCH
 public class Reader {
     private int groupnumber;
 
@@ -99,35 +101,33 @@ public class Reader {
 
     private void addFilmSchauspilerbezihung(String line,ArrayList<Filme> filme,ArrayList<Schauspieler> schauspieler){
         String[] lineparts = trimline(line);
-        Filme f = findmfilmByID(Integer.parseInt(lineparts[1]),filme);
+        Filme f = findByID(Integer.parseInt(lineparts[1]),filme,Filme::getId);
+        Schauspieler s = findByID(Integer.parseInt(lineparts[0]), schauspieler, Schauspieler::getId);
         try {
-
-
-            if (f != null) {
-                for (Schauspieler s : schauspieler) {
-                    if (s.getId() == Integer.parseInt(lineparts[0])) {
-                        f.addBezihungSchauspieler(s);
-                        return;
-                    }
-                }
-            }
+            if (f != null && s != null) f.addBezihungSchauspieler(s);
         }catch (Exception e){
             System.err.println("Schuaspiler zu Film");
         }
     }
 
+    private <T> void addBezihung(String line,ArrayList<Filme> filme,ArrayList<T> bezihungen,Function<T, Integer> getIdFunc,Function<T,Void> addbezihungFunc){
+        String[] lineparts = trimline(line);
+        Filme f = findByID(Integer.parseInt(lineparts[1]),filme,Filme::getId);
+        T element = findByID(Integer.parseInt(lineparts[0]), bezihungen,getIdFunc);
+        try {
+            if (f != null && element != null) //Bezihung setzen und weas
+        }catch (Exception e){
+            System.err.println("Schuaspiler zu Film");
+        }
+
+    }
+
     private void addFilmRegisurbezihung(String line,ArrayList<Filme>filme,ArrayList<Regisur>regisur){
         String[] lineparts = trimline(line);
-        Filme f = findmfilmByID(Integer.parseInt(lineparts[1]),filme);
+        Filme f = findByID(Integer.parseInt(lineparts[1]),filme,Filme::getId);
+        Regisur r = findByID(Integer.parseInt(lineparts[0]), regisur, Regisur::getId);
         try {
-            if (f != null) {
-                for (Regisur r : regisur) {
-                    if (r.getId() == Integer.parseInt(lineparts[0])) {
-                        f.setRegisur(r);
-                        return;
-                    }
-                }
-            }
+            if (f != null && r != null) f.setRegisur(r);
         }catch (Exception e){
             System.out.println("Regisures zu Filmen " );
         }
@@ -149,15 +149,13 @@ public class Reader {
         return lineparts;
     }
 
-    private Filme findmfilmByID(int id,ArrayList<Filme> filmes){
-        for(Filme f:filmes){
-            assert f != null;
-            if(f.getId() == id) return f;
-        }
+
+    private <T> T findByID(int id,ArrayList<T> list ,Function<T, Integer> getidFunc){
+        for(T element : list) if (getidFunc.apply(element) == id) return element;
         return null;
     }
 
-    private static <T> void addIfNotDuplicate(ArrayList<T> list, T item, Function<T, Integer> getIdFunc) {
+    private <T> void addIfNotDuplicate(ArrayList<T> list, T item, Function<T, Integer> getIdFunc) {
         boolean isDuplicate = false;
         for (T element : list) {
             if (getIdFunc.apply(element).equals(getIdFunc.apply(item))) {
