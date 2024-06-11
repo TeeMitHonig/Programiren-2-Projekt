@@ -9,7 +9,10 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.function.Function;
+
+
+import static src.Datahelper.addIfNotDuplicate;
+import static src.Datahelper.findByID;
 
 
 public class Reader {
@@ -83,7 +86,7 @@ public class Reader {
             if (lineparts.length == 7 && !lineparts[6].isEmpty()) return new Filme(lineparts[1], lineparts[2], lineparts[4], Integer.parseInt(lineparts[0]), new IMDbBewertungen(Double.parseDouble(lineparts[6]), Integer.parseInt(lineparts[5])));
             else return new Filme(lineparts[1], lineparts[2], lineparts[4], Integer.parseInt(lineparts[0]));
         }catch (Exception e){
-            System.err.println("Movie : " + lineparts[0] + " Macht Probleme");
+           // System.err.println("Movie : " + lineparts[0] + " Macht Probleme");
         }
         return null;
     }
@@ -140,21 +143,5 @@ public class Reader {
     }
 
 
-    private <T> T findByID(int id,ArrayList<T> list ,Function<T, Integer> getidFunc){
-        for(T element : list) if (getidFunc.apply(element) == id) return element;
-        return null;
-    }
 
-private <T> void addIfNotDuplicate(ArrayList<T> list, T item, Function<T, Integer> getIdFunc) {
-    boolean isDuplicate = false;
-    for (T element : list) {
-        if (getIdFunc.apply(element).equals(getIdFunc.apply(item))) {
-            isDuplicate = true;
-            break;
-        }
-    }
-    if (!isDuplicate) {
-        list.add(item);
-    }
-}
 }

@@ -24,7 +24,6 @@ public class Filme {
         this.beschreibung = beschreibung;
         ErscheinungsDat = erscheinungsDat;
         this.id = id;
-        this.regisur = regisur;
         this.imdbBewertungen = imdbBewertungen;
 
         schauspieler = new ArrayList<>();
@@ -36,8 +35,6 @@ public class Filme {
         this.beschreibung = beschreibung;
         ErscheinungsDat = erscheinungsDat;
         this.id = id;
-        this.regisur = regisur;
-        this.imdbBewertungen = imdbBewertungen;
         schauspieler = new ArrayList<>();
     }
 //TODO DOPPELTE RAUS

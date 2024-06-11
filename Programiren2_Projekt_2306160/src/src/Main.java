@@ -9,6 +9,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import static src.Datahelper.findByString;
+
 //TODO GESCHEITE RELAZIONEN
 //TODO Einlesen
 //TODO Funkzionalitätä
@@ -25,11 +27,11 @@ public class Main {
         Reader reader = new Reader();
         reader.read(filepath,filme,regisure,schauspieler);
 
-        String[] argument = args[0].split("=");
+        String[] argument = "--filmsuche=Matrix".split("="); //args[0].split("=");
 
         switch (argument[0]){
             case "--filmsuche":
-
+                filmsuche(argument[1],filme);
                 break;
             case "--schauspielersuche":
 
@@ -44,8 +46,14 @@ public class Main {
 
         }
 
+    }
 
-        System.out.println("Fertig ");
+    private static void filmsuche(String suche, ArrayList<Filme> filme){
+        ArrayList<Filme> gefundenefilme =findByString(suche,filme,Filme::getTitel);
+        for (Filme f:gefundenefilme)
+            System.out.printf(f.getId() + "\n" + f.getTitel() + "\n" + f.getBeschreibung() + "\n");
+
+
     }
 
 
