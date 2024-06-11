@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.function.Function;
 
 
-//TODO SORTIERTES EINFÜGEN UND DANN BINARYSEARCH
 public class Reader {
     private int groupnumber;
 
@@ -99,6 +98,7 @@ public class Reader {
         return null;
     }
 
+
     private void addFilmSchauspilerbezihung(String line,ArrayList<Filme> filme,ArrayList<Schauspieler> schauspieler){
         String[] lineparts = trimline(line);
         Filme f = findByID(Integer.parseInt(lineparts[1]),filme,Filme::getId);
@@ -110,17 +110,7 @@ public class Reader {
         }
     }
 
-    private <T> void addBezihung(String line,ArrayList<Filme> filme,ArrayList<T> bezihungen,Function<T, Integer> getIdFunc,Function<T,Void> addbezihungFunc){
-        String[] lineparts = trimline(line);
-        Filme f = findByID(Integer.parseInt(lineparts[1]),filme,Filme::getId);
-        T element = findByID(Integer.parseInt(lineparts[0]), bezihungen,getIdFunc);
-        try {
-            if (f != null && element != null) //Bezihung setzen und weas
-        }catch (Exception e){
-            System.err.println("Schuaspiler zu Film");
-        }
 
-    }
 
     private void addFilmRegisurbezihung(String line,ArrayList<Filme>filme,ArrayList<Regisur>regisur){
         String[] lineparts = trimline(line);
@@ -155,16 +145,16 @@ public class Reader {
         return null;
     }
 
-    private <T> void addIfNotDuplicate(ArrayList<T> list, T item, Function<T, Integer> getIdFunc) {
-        boolean isDuplicate = false;
-        for (T element : list) {
-            if (getIdFunc.apply(element).equals(getIdFunc.apply(item))) {
-                isDuplicate = true;
-                break;
-            }
-        }
-        if (!isDuplicate) {
-            list.add(item);
+private <T> void addIfNotDuplicate(ArrayList<T> list, T item, Function<T, Integer> getIdFunc) {
+    boolean isDuplicate = false;
+    for (T element : list) {
+        if (getIdFunc.apply(element).equals(getIdFunc.apply(item))) {
+            isDuplicate = true;
+            break;
         }
     }
+    if (!isDuplicate) {
+        list.add(item);
+    }
+}
 }
