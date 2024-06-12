@@ -107,7 +107,10 @@ public class Reader {
         Filme f = findByID(Integer.parseInt(lineparts[1]),filme,Filme::getId);
         Schauspieler s = findByID(Integer.parseInt(lineparts[0]), schauspieler, Schauspieler::getId);
         try {
-            if (f != null && s != null) f.addBezihungSchauspieler(s);
+            if (f != null && s != null) {
+                s.addfilm(f);
+                f.addBezihungSchauspieler(s);
+            }
         }catch (Exception e){
             System.err.println("Schuaspiler zu Film");
         }

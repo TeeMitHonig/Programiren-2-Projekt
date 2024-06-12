@@ -1,5 +1,8 @@
 package src;
 
+import src.filme.Filme;
+import src.personen.Schauspieler;
+
 import java.util.ArrayList;
 import java.util.function.Function;
 
@@ -35,6 +38,26 @@ public class Datahelper {
         }
     }
 
+    static public void findnetzwerk(Filme film,ArrayList<Filme> filme , ArrayList<Schauspieler> schauspieler){
+       schauspieler.addAll(film.getSchauspielers());
+       ArrayList<Filme>temp;
+       for(Schauspieler s:schauspieler){
+           temp =s.getFilme();
+           for(Filme f:temp) {
+               addIfNotDuplicate(filme,f,Filme::getId );
+           }
+       }
 
+    }
 
+    static public void findSchauspilernetzwerk(Schauspieler schauspieler,ArrayList<Schauspieler> schauspielerlist , ArrayList<Filme> filme){
+       filme.addAll(schauspieler.getFilme());
+        ArrayList<Schauspieler>temp;
+        for(Filme f:filme){
+            temp =f.getSchauspielers();
+            for(Schauspieler s:temp) {
+                addIfNotDuplicate(schauspielerlist,s,Schauspieler::getId );
+            }
+        }
+    }
 }

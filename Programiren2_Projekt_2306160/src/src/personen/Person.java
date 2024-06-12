@@ -1,8 +1,13 @@
 package src.personen;
 
+import src.filme.Filme;
+
+import java.util.ArrayList;
+
 public class Person {
     private String name;
     private int id;
+
 
     public Person(String name, int id) {
         this.name = name;
@@ -24,5 +29,6 @@ public class Person {
     public void setId(int id) {
         this.id = id;
     }
+
 
 }
