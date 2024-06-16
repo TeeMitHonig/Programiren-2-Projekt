@@ -8,6 +8,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import static src.Datahelper.*;
 
@@ -25,7 +26,7 @@ public class Main {
         Reader reader = new Reader();
         reader.read(filepath,filme,regisure,schauspieler);
 
-        String[] argument = "--schauspielernetzwerk=17562".split("="); //args[0].split("=");
+        String[] argument = args[0].split("=");
 
         switch (argument[0]){
             case "--filmsuche":
@@ -43,9 +44,8 @@ public class Main {
                 schowSchauspilernetztwerk(Integer.parseInt(argument[1]),schauspieler);
                 break;
 
-
-
-
+            default:
+                System.out.println("Invallid argument");
     }
 
 }
@@ -69,30 +69,44 @@ private static void showFilmnetzwerk(int id, ArrayList<Filme>filmelist){
     ArrayList<Schauspieler> schauspieler = new ArrayList<>();
         findnetzwerk(findByID(id,filmelist,Filme::getId),filme,schauspieler);
 
-        System.out.print("Schauspieler: " );
+
+    StringBuilder schauspileroutput = new StringBuilder();
+    StringBuilder filmeoutput = new StringBuilder();
+
+    schauspileroutput.append("Schauspieler: " );
         for (Schauspieler s:schauspieler){
-            System.out.print(s.getName() + ", ");
+            schauspileroutput.append(s.getName()).append(", ");
         }
-        System.out.print("\nFilme: ");
+    filmeoutput.append("Filme: ");
        for (Filme f:filme){
-           System.out.print(f.getTitel() + ", ");
+           filmeoutput.append(f.getTitel()).append(", ");
        }
+
+    System.out.println(schauspileroutput.toString());
+    System.out.println(filmeoutput.toString());
 
     }
 
     private static void schowSchauspilernetztwerk(int id, ArrayList<Schauspieler>schauspielerlist){
         ArrayList<Filme> filme = new ArrayList<>();
         ArrayList<Schauspieler> schauspieler = new ArrayList<>();
-        findSchauspilernetzwerk(findByID(id,schauspielerlist, Schauspieler::getId),schauspieler,filme);
+        findSchauspilernetzwerk(Objects.requireNonNull(findByID(id, schauspielerlist, Schauspieler::getId)),schauspieler,filme);
 
-        System.out.print("Schauspieler: " );
+        StringBuilder schauspileroutput = new StringBuilder();
+        StringBuilder filmeoutput = new StringBuilder();
+
+
+        schauspileroutput.append("Schauspieler: " );
         for (Schauspieler s:schauspieler){
-            System.out.print(s.getName() + ", ");
+            schauspileroutput.append(s.getName()).append(", ");
         }
-        System.out.print("\nFilme: ");
+        filmeoutput.append("Filme: ");
         for (Filme f:filme){
-            System.out.print(f.getTitel() + ", ");
+            filmeoutput.append(f.getTitel()).append(", ");
         }
+
+        System.out.println(schauspileroutput.toString());
+        System.out.println(filmeoutput.toString());
 
     }
 
