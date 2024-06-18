@@ -77,13 +77,14 @@ private static void showFilmnetzwerk(int id, ArrayList<Filme>filmelist){
         for (Schauspieler s:schauspieler){
             schauspileroutput.append(s.getName()).append(", ");
         }
+
     filmeoutput.append("Filme: ");
        for (Filme f:filme){
            filmeoutput.append(f.getTitel()).append(", ");
        }
 
-    System.out.println(schauspileroutput.toString());
-    System.out.println(filmeoutput.toString());
+    System.out.println(schauspileroutput.toString().substring(0, schauspileroutput.toString().length() - 2));
+    System.out.println(filmeoutput.toString().substring(0, filmeoutput.toString().length() - 2).replace(findByID(id,filme,Filme::getId).getTitel() + ", ", ""));
 
     }
 
@@ -105,8 +106,8 @@ private static void showFilmnetzwerk(int id, ArrayList<Filme>filmelist){
             filmeoutput.append(f.getTitel()).append(", ");
         }
 
-        System.out.println(schauspileroutput.toString());
-        System.out.println(filmeoutput.toString());
+        System.out.println(schauspileroutput.toString().substring(0, schauspileroutput.toString().length() - 2).replace(findByID(id,schauspieler,Schauspieler::getId).getName() + ", ", ""));
+        System.out.println(filmeoutput.toString().substring(0, filmeoutput.toString().length() - 2));
 
     }
 
