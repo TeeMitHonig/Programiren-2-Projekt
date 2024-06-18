@@ -83,7 +83,7 @@ public class Reader {
         String[] lineparts = trimline(line);
 
         try {
-            if (lineparts.length == 7 && !lineparts[6].isEmpty()) return new Filme(lineparts[1], lineparts[2], lineparts[4], Integer.parseInt(lineparts[0]), new IMDbBewertungen(Double.parseDouble(lineparts[6]), Integer.parseInt(lineparts[5])));
+            if (lineparts.length == 7 && !lineparts[6].isEmpty() && !lineparts[5].isEmpty()) return new Filme(lineparts[1], lineparts[2], lineparts[4], Integer.parseInt(lineparts[0]), new IMDbBewertungen(Double.parseDouble(lineparts[6]), Integer.parseInt(lineparts[5])));
             else return new Filme(lineparts[1], lineparts[2], lineparts[4], Integer.parseInt(lineparts[0]));
         }catch (Exception e){
            // System.err.println("Movie : " + lineparts[0] + " Macht Probleme");

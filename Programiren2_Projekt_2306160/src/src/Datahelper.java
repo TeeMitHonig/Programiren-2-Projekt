@@ -39,19 +39,18 @@ public class Datahelper {
     }
 
     static public void findnetzwerk(Filme film,ArrayList<Filme> filme , ArrayList<Schauspieler> schauspieler){
-       schauspieler.addAll(film.getSchauspielers());
-       ArrayList<Filme>temp;
-       for(Schauspieler s:schauspieler){
-           temp =s.getFilme();
-           for(Filme f:temp) {
-               addIfNotDuplicate(filme,f,Filme::getId );
-           }
-       }
-
+        schauspieler.addAll(film.getSchauspielers());
+        ArrayList<Filme>temp;
+        for(Schauspieler s:schauspieler){
+            temp =s.getFilme();
+            for(Filme f:temp) {
+                addIfNotDuplicate(filme,f,Filme::getId );
+            }
+        }
     }
 
     static public void findSchauspilernetzwerk(Schauspieler schauspieler,ArrayList<Schauspieler> schauspielerlist , ArrayList<Filme> filme){
-       filme.addAll(schauspieler.getFilme());
+        filme.addAll(schauspieler.getFilme());
         ArrayList<Schauspieler>temp;
         for(Filme f:filme){
             temp =f.getSchauspielers();
@@ -60,4 +59,7 @@ public class Datahelper {
             }
         }
     }
+
+
+
 }
