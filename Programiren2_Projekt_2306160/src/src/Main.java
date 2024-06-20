@@ -26,7 +26,7 @@ public class Main {
         Reader reader = new Reader();
         reader.read(filepath,filme,regisure,schauspieler);
 
-        String[] argument = args[0].split("=");
+        String[] argument = "--schauspielernetzwerk=9905".split("=");//args[0].split("=");
 
         switch (argument[0]){
             case "--filmsuche":
