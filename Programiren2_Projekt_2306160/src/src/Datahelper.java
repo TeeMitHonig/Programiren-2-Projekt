@@ -62,7 +62,7 @@ public class Datahelper {
 
     //Die drüber auch als generic gegen code duplication wird aber nicht verwendet da es sonst zu unleserlich ist
 
-    static public <T,G> void findnettwerk(T normal,ArrayList<T>normalList,ArrayList<G> extra,Function<T, ArrayList<G>> getother,Function<T, Integer> getIdFunc,Function<G, ArrayList<T>> getTs){
+    static public <T,G> void findnettwerk(T normal, ArrayList<T>normalList, ArrayList<G> extra, Function<T, ArrayList<G>> getother, Function<T, Integer> getIdFunc, Function<G, ArrayList<T>> getTs){
         extra.addAll(getother.apply(normal));
         ArrayList<T>temp;
         for(G item : extra){
@@ -72,5 +72,7 @@ public class Datahelper {
             }
         }
     }
+
+
 
 }

@@ -26,7 +26,7 @@ public class Main {
         Reader reader = new Reader();
         reader.read(filepath,filme,regisure,schauspieler);
 
-        String[] argument = "--schauspielernetzwerk=9905".split("=");//args[0].split("=");
+        String[] argument = "--filmnetzwerk=1592".split(("="));//args[0].split("=");
 
         switch (argument[0]){
             case "--filmsuche":
@@ -106,7 +106,10 @@ private static void showFilmnetzwerk(int id, ArrayList<Filme>filmelist){
             filmeoutput.append(f.getTitel()).append(", ");
         }
 
-        System.out.println(schauspileroutput.toString().substring(0, schauspileroutput.toString().length() - 2).replace(findByID(id,schauspieler,Schauspieler::getId).getName() + ", ", ""));
+        System.out.println(schauspileroutput.toString().
+                substring(0, schauspileroutput.toString().length() - 2).
+                replace(findByID(id,schauspieler,Schauspieler::getId).
+                        getName() + ", ", ""));
         System.out.println(filmeoutput.toString().substring(0, filmeoutput.toString().length() - 2));
 
     }
