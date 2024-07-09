@@ -10,7 +10,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-
+/**
+ * list daten aus einer angebebene datei
+ */
 public class Reader {
     private int groupnumber;
 

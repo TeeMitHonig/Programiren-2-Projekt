@@ -1,5 +1,8 @@
 package filme;
 
+/**
+ * Bewertungen
+ */
 public class IMDbBewertungen {
     private double bewertung;
     private int anzahlBewertungen;

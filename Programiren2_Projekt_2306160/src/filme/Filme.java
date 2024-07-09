@@ -4,10 +4,13 @@ import personen.Schauspieler;
 import personen.Regisur;
 import java.util.ArrayList;
 
+/**
+ * Klasse die filme beschreibt
+ */
 public class Filme {
     private String titel;
     private String beschreibung;
-    private String ErscheinungsDat; //TODO IN EIN RICHTIGES FORMATwandlen
+    private String ErscheinungsDat;
     private int id;
 
     private ArrayList<Schauspieler> schauspieler;
@@ -36,7 +39,7 @@ public class Filme {
         this.id = id;
         schauspieler = new ArrayList<>();
     }
-//TODO DOPPELTE RAUS
+
     public void addBezihungSchauspieler(Schauspieler s1){
         schauspieler.add(s1);
     };

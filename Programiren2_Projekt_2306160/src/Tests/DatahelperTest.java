@@ -7,7 +7,6 @@ import helper.Datahelper;
 
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.ArrayList;
-import java.util.List;
 
 class DatahelperTest {
 
@@ -62,13 +61,75 @@ class DatahelperTest {
 
     @Test
     void testFindnetzwerk() {
+        // Listen in die das netzwerk eingetragen wird
+        ArrayList<Filme> filmeArrayList = new ArrayList<>();
+        ArrayList<Schauspieler> schauspielerArrayList = new ArrayList<>() ;
 
+        // Netztwerk aufvbauen
+        Filme film1 = new Filme("F1","TESTING","TEST",11);
+        Filme film2 = new Filme("F2","TESTING","TEST",12);
+
+        Schauspieler spieler1 = new Schauspieler("John Doe",1);
+        Schauspieler spieler2 = new Schauspieler("John Doe",2);
+        Schauspieler spieler3 = new Schauspieler("John Doe",3);
+
+        spieler1.addfilm(film1);
+        spieler1.addfilm(film2);
+        spieler2.addfilm(film1);
+        spieler3.addfilm(film2);
+
+        film1.addBezihungSchauspieler(spieler1);
+        film2.addBezihungSchauspieler(spieler1);
+        film1.addBezihungSchauspieler(spieler2);
+        film2.addBezihungSchauspieler(spieler3);
+
+        Datahelper.findnetzwerk(film1,filmeArrayList,schauspielerArrayList);
+
+        assertEquals(2,filmeArrayList.size());
+        assertEquals(2,schauspielerArrayList.size());
 
 
     }
 
     @Test
     void testFindSchauspilernetzwerk() {
+        // Listen in die das netzwerk eingetragen wird
+        ArrayList<Filme> filmeArrayList = new ArrayList<>();
+        ArrayList<Schauspieler> schauspielerArrayList = new ArrayList<>() ;
+
+        // Netztwerk aufvbauen
+        Filme film1 = new Filme("F1","TESTING","TEST",11);
+        Filme film2 = new Filme("F2","TESTING","TEST",12);
+        Filme film3 = new Filme("F2","TESTING","TEST",13);
+
+        Schauspieler spieler1 = new Schauspieler("John Doe",1);
+        Schauspieler spieler2 = new Schauspieler("John Doe",2);
+        Schauspieler spieler3 = new Schauspieler("John Doe",3);
+        Schauspieler spieler4 = new Schauspieler("John Doe",3);
+
+
+
+        spieler1.addfilm(film1);
+        spieler1.addfilm(film2);
+        spieler2.addfilm(film1);
+        spieler3.addfilm(film2);
+        spieler3.addfilm(film3);
+
+
+        film1.addBezihungSchauspieler(spieler1);
+        film2.addBezihungSchauspieler(spieler1);
+        film1.addBezihungSchauspieler(spieler2);
+        film2.addBezihungSchauspieler(spieler3);
+        film3.addBezihungSchauspieler(spieler3);
+        film3.addBezihungSchauspieler(spieler4);
+
+        Datahelper.findSchauspilernetzwerk(spieler1,schauspielerArrayList,filmeArrayList);
+
+        assertEquals(2,filmeArrayList.size());
+        assertEquals(3,schauspielerArrayList.size());
+
+
+
 
     }
 

@@ -6,10 +6,20 @@ import personen.Schauspieler;
 import java.util.ArrayList;
 import java.util.function.Function;
 
+/**
+ * Klasse diue es ermöglicht daten zu verwalten
+ */
 public class Datahelper {
 
 
-
+    /**
+     * Findet ein objekt aus einer liste anhand seiner id
+     * @param id zu suchende id
+     * @param list die zu durchsuchende liste
+     * @param getidFunc finczion um die id zu bekommen
+     * @return das gedfundene objekt
+     * @param <T>
+     */
     static public  <T> T findByID(int id, ArrayList<T> list , Function<T, Integer> getidFunc){
         for(T element : list)
             if (getidFunc.apply(element) == id)
@@ -17,6 +27,14 @@ public class Datahelper {
         return null;
     }
 
+    /**
+     * Findet ein objekt nach einen string
+     * @param serachString wonAach gesucht wird
+     * @param searchlist worin wird gesucht
+     * @param getSFunc funklzion um den sting zu bekommen zum Vergleichen
+     * @return liste an allen gefunden objekten die zur Suche passen
+     * @param <T>
+     */
     static public <T> ArrayList<T> findByString(String serachString, ArrayList<T> searchlist , Function<T, String> getSFunc){
         ArrayList<T>list = new ArrayList<>();
         for(T element : searchlist)
@@ -25,6 +43,13 @@ public class Datahelper {
         return list;
     }
 
+    /**
+     * fügt ein element an eine liste an wenn sie nicht schon inhalten ist
+     * @param list welche liste
+     * @param item welches objekt
+     * @param getIdFunc funkzion um zu verggelcihen ob es schon exestiert
+     * @param <T>
+     */
     static public <T> void addIfNotDuplicate(ArrayList<T> list, T item, Function<T, Integer> getIdFunc) {
         boolean isDuplicate = false;
         for (T element : list) {
@@ -38,6 +63,12 @@ public class Datahelper {
         }
     }
 
+    /**
+     * findet ein film netztwerk
+     * @param film nezwerk von was
+     * @param filme output 1
+     * @param schauspieler output 2
+     */
     static public void findnetzwerk(Filme film,ArrayList<Filme> filme , ArrayList<Schauspieler> schauspieler){
         schauspieler.addAll(film.getSchauspielers());
         ArrayList<Filme>temp;
@@ -49,6 +80,12 @@ public class Datahelper {
         }
     }
 
+    /**
+     * findet ein schauspieler netzwerk
+     * @param schauspieler wessen neztz
+     * @param schauspielerlist output 1
+     * @param filme output2
+     */
     static public void findSchauspilernetzwerk(Schauspieler schauspieler, ArrayList<Schauspieler> schauspielerlist , ArrayList<Filme> filme){
         filme.addAll(schauspieler.getFilme());
         ArrayList<Schauspieler>temp;

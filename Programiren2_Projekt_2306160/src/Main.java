@@ -8,19 +8,23 @@ import java.util.Objects;
 
 import static helper.Datahelper.*;
 
+/**
+ * Main calsse
+ */
 public class Main {
     public static void main(String[] args) {
 
 
-
+// inizalisirung
         ArrayList<Filme> filme = new ArrayList<>();
         ArrayList<Regisur> regisure = new ArrayList<>();
         ArrayList<Schauspieler> schauspieler = new ArrayList<>();
+        //Einlesen der daten
         String filepath = ".//movieproject2024.db";
-
         Reader reader = new Reader();
         reader.read(filepath,filme,regisure,schauspieler);
 
+        // Input verwalten
         String[] argument = args[0].split("=");
 
         switch (argument[0]){
@@ -44,6 +48,9 @@ public class Main {
     }
 
 }
+
+
+
 
 private static void filmsuche(String suche, ArrayList<Filme> filme){
     ArrayList<Filme> gefundenefilme =findByString(suche,filme,Filme::getTitel);
