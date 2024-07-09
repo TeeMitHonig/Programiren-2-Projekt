@@ -25,6 +25,10 @@ public class Main {
         reader.read(filepath,filme,regisure,schauspieler);
 
         // Input verwalten
+        if(args.length == 0){
+            System.out.println("Keine argumente angegeben ");
+            return;
+        }
         String[] argument = args[0].split("=");
 
         switch (argument[0]){
