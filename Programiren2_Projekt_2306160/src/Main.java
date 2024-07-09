@@ -1,17 +1,12 @@
-package src;
+import filme.Filme;
+import helper.Reader;
+import personen.Regisur;
+import personen.Schauspieler;
 
-import src.filme.Filme;
-import src.personen.Regisur;
-import src.personen.Schauspieler;
-
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import static src.Datahelper.*;
-
+import static helper.Datahelper.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -26,7 +21,7 @@ public class Main {
         Reader reader = new Reader();
         reader.read(filepath,filme,regisure,schauspieler);
 
-        String[] argument = "--filmnetzwerk=1592".split(("="));//args[0].split("=");
+        String[] argument = args[0].split("=");
 
         switch (argument[0]){
             case "--filmsuche":
@@ -73,18 +68,18 @@ private static void showFilmnetzwerk(int id, ArrayList<Filme>filmelist){
     StringBuilder schauspileroutput = new StringBuilder();
     StringBuilder filmeoutput = new StringBuilder();
 
-    schauspileroutput.append("Schauspieler: " );
+    schauspileroutput.append("personen.Schauspieler: " );
         for (Schauspieler s:schauspieler){
             schauspileroutput.append(s.getName()).append(", ");
         }
 
-    filmeoutput.append("Filme: ");
+    filmeoutput.append("filme.Filme: ");
        for (Filme f:filme){
            filmeoutput.append(f.getTitel()).append(", ");
        }
 
     System.out.println(schauspileroutput.toString().substring(0, schauspileroutput.toString().length() - 2));
-    System.out.println(filmeoutput.toString().substring(0, filmeoutput.toString().length() - 2).replace(findByID(id,filme,Filme::getId).getTitel() + ", ", ""));
+    System.out.println(filmeoutput.toString().substring(0, filmeoutput.toString().length() - 2).replace(findByID(id,filme, Filme::getId).getTitel() + ", ", ""));
 
     }
 
@@ -97,11 +92,11 @@ private static void showFilmnetzwerk(int id, ArrayList<Filme>filmelist){
         StringBuilder filmeoutput = new StringBuilder();
 
 
-        schauspileroutput.append("Schauspieler: " );
+        schauspileroutput.append("personen.Schauspieler: " );
         for (Schauspieler s:schauspieler){
             schauspileroutput.append(s.getName()).append(", ");
         }
-        filmeoutput.append("Filme: ");
+        filmeoutput.append("filme.Filme: ");
         for (Filme f:filme){
             filmeoutput.append(f.getTitel()).append(", ");
         }

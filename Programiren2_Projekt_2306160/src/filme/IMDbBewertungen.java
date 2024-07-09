@@ -1,4 +1,4 @@
-package src.filme;
+package filme;
 
 public class IMDbBewertungen {
     private double bewertung;

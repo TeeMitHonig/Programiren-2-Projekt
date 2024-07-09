@@ -1,8 +1,7 @@
-package src.filme;
+package filme;
 
-import src.personen.Regisur;
-import src.personen.Schauspieler;
-
+import personen.Schauspieler;
+import personen.Regisur;
 import java.util.ArrayList;
 
 public class Filme {
@@ -13,7 +12,7 @@ public class Filme {
 
     private ArrayList<Schauspieler> schauspieler;
     private Regisur regisur;
-    private src.filme.IMDbBewertungen imdbBewertungen;
+    private IMDbBewertungen imdbBewertungen;
 
 
 
@@ -91,11 +90,11 @@ public class Filme {
         this.regisur = regisur;
     }
 
-    public src.filme.IMDbBewertungen getImdbBewertungen() {
+    public IMDbBewertungen getImdbBewertungen() {
         return imdbBewertungen;
     }
 
-    public void setImdbBewertungen(src.filme.IMDbBewertungen imdbBewertungen) {
+    public void setImdbBewertungen(IMDbBewertungen imdbBewertungen) {
         this.imdbBewertungen = imdbBewertungen;
     }
 }

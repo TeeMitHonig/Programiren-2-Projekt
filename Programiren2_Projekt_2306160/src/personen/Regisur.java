@@ -1,4 +1,4 @@
-package src.personen;
+package personen;
 
 public class Regisur extends Person {
     public Regisur(String name, int id) {

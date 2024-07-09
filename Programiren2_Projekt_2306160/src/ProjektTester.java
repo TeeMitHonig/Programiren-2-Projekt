@@ -1,5 +1,3 @@
-package src;
-
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.lang.reflect.Method;
@@ -7,7 +5,7 @@ import java.lang.reflect.Method;
 public class ProjektTester {
     // Konfiguration eurer Hauptklasse. Bitte vollqualifizierten Klassennamen plus Paket angeben.
     // Z.b. die Klasse MeinProjekt im Paket dhbw.java, muss lauten: 'dhbw.java.MeinProjekt'
-    private static final String MAIN_CLASS = "src.Main";
+    private static final String MAIN_CLASS = "Main";
 
     public static void main(String[] args) {
         // Tests are passing
@@ -69,23 +67,23 @@ public class ProjektTester {
         String matrixOutput = baos.toString();
         String[] lines = matrixOutput.split(System.lineSeparator());
         for (String line : lines) {
-            if (line.startsWith("Schauspieler")) {
+            if (line.startsWith("personen.Schauspieler")) {
                 if (!line.contains(schauspielerContaines)) {
                     passed = false;
-                    System.err.println("Test: " + arg + " fehlgeschlagen, weil Schauspieler nicht stimmen.");
+                    System.err.println("Test: " + arg + " fehlgeschlagen, weil personen.Schauspieler nicht stimmen.");
                 }
                 if (countComma(line) != schauspielerComma) {
                     passed = false;
-                    System.err.println("Test: " + arg + " fehlgeschlagen, weil Anzahl der Schauspieler nicht stimmen. Erwartet: " + schauspielerComma + ", erhalten: " + countComma(line));
+                    System.err.println("Test: " + arg + " fehlgeschlagen, weil Anzahl der personen.Schauspieler nicht stimmen. Erwartet: " + schauspielerComma + ", erhalten: " + countComma(line));
                 }
-            } else if (line.startsWith("Filme")) {
+            } else if (line.startsWith("filme.Filme")) {
                 if (!line.contains(filmeContains)) {
                     passed = false;
-                    System.err.println("Test: " + arg + " fehlgeschlagen, weil Filme nicht stimmen.");
+                    System.err.println("Test: " + arg + " fehlgeschlagen, weil filme.Filme nicht stimmen.");
                 }
                 if (countComma(line) != filmeComma) {
                     passed = false;
-                    System.err.println("Test: " + arg + " fehlgeschlagen, weil Anzahl der Filme nicht stimmen. Erwartet: " + filmeComma + ", erhalten: " + countComma(line));
+                    System.err.println("Test: " + arg + " fehlgeschlagen, weil Anzahl der filme.Filme nicht stimmen. Erwartet: " + filmeComma + ", erhalten: " + countComma(line));
                 }
             }
         }

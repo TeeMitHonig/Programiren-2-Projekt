@@ -1,7 +1,7 @@
-package src;
+package helper;
 
-import src.filme.Filme;
-import src.personen.Schauspieler;
+import filme.Filme;
+import personen.Schauspieler;
 
 import java.util.ArrayList;
 import java.util.function.Function;
@@ -49,7 +49,7 @@ public class Datahelper {
         }
     }
 
-    static public void findSchauspilernetzwerk(Schauspieler schauspieler,ArrayList<Schauspieler> schauspielerlist , ArrayList<Filme> filme){
+    static public void findSchauspilernetzwerk(Schauspieler schauspieler, ArrayList<Schauspieler> schauspielerlist , ArrayList<Filme> filme){
         filme.addAll(schauspieler.getFilme());
         ArrayList<Schauspieler>temp;
         for(Filme f:filme){

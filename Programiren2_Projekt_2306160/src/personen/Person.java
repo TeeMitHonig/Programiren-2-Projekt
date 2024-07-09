@@ -1,8 +1,4 @@
-package src.personen;
-
-import src.filme.Filme;
-
-import java.util.ArrayList;
+package personen;
 
 public class Person {
     private String name;

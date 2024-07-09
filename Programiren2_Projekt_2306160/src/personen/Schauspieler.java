@@ -1,6 +1,6 @@
-package src.personen;
+package personen;
 
-import src.filme.Filme;
+import filme.Filme;
 
 import java.util.ArrayList;
 

@@ -1,18 +1,14 @@
-package src;
+package helper;
 
-import src.filme.Filme;
-import src.filme.IMDbBewertungen;
-import src.personen.Regisur;
-import src.personen.Schauspieler;
+import filme.Filme;
+import filme.IMDbBewertungen;
+import personen.Regisur;
+import personen.Schauspieler;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-
-
-import static src.Datahelper.addIfNotDuplicate;
-import static src.Datahelper.findByID;
 
 
 public class Reader {
@@ -46,15 +42,15 @@ public class Reader {
         switch (groupnumber){
             case 0:
                 Schauspieler s = handleSchauspielerinput(line);
-                if(s != null)  addIfNotDuplicate(schauspieler, s, Schauspieler::getId);
+                if(s != null)  Datahelper.addIfNotDuplicate(schauspieler, s, Schauspieler::getId);
                 break;
             case 1:
                 Filme f = handleFilminput(line);
-                if(f != null)  addIfNotDuplicate(filme, f, Filme::getId);
+                if(f != null)  Datahelper.addIfNotDuplicate(filme, f, Filme::getId);
                 break;
             case 2:
                 Regisur r = handledirctorinput(line);
-                if(r != null)  addIfNotDuplicate(regisur, r, Regisur::getId);
+                if(r != null)  Datahelper.addIfNotDuplicate(regisur, r, Regisur::getId);
                 break;
             case 3:
                 addFilmSchauspilerbezihung(line,filme,schauspieler);
@@ -72,7 +68,7 @@ public class Reader {
         try {
             return new Schauspieler(lineparts[1],Integer.parseInt(lineparts[0]));
         }catch (Exception e){
-            System.err.println("Schauspieler : " + lineparts[0] + " Macht Probleme");
+            System.err.println("personen.Schauspieler : " + lineparts[0] + " Macht Probleme");
         }
         return null;
     }
@@ -96,7 +92,7 @@ public class Reader {
         try {
             return new Regisur(lineparts[1],Integer.parseInt(lineparts[0]));
         }catch (Exception e){
-            System.err.println("Regisur : " + lineparts[0] + " Macht Probleme");
+            System.err.println("personen.Regisur : " + lineparts[0] + " Macht Probleme");
         }
         return null;
     }
@@ -104,8 +100,8 @@ public class Reader {
 
     private void addFilmSchauspilerbezihung(String line,ArrayList<Filme> filme,ArrayList<Schauspieler> schauspieler){
         String[] lineparts = trimline(line);
-        Filme f = findByID(Integer.parseInt(lineparts[1]),filme,Filme::getId);
-        Schauspieler s = findByID(Integer.parseInt(lineparts[0]), schauspieler, Schauspieler::getId);
+        Filme f = Datahelper.findByID(Integer.parseInt(lineparts[1]),filme,Filme::getId);
+        Schauspieler s = Datahelper.findByID(Integer.parseInt(lineparts[0]), schauspieler, Schauspieler::getId);
         try {
             if (f != null && s != null) {
                 s.addfilm(f);
@@ -120,8 +116,8 @@ public class Reader {
 
     private void addFilmRegisurbezihung(String line,ArrayList<Filme>filme,ArrayList<Regisur>regisur){
         String[] lineparts = trimline(line);
-        Filme f = findByID(Integer.parseInt(lineparts[1]),filme,Filme::getId);
-        Regisur r = findByID(Integer.parseInt(lineparts[0]), regisur, Regisur::getId);
+        Filme f = Datahelper.findByID(Integer.parseInt(lineparts[1]),filme,Filme::getId);
+        Regisur r = Datahelper.findByID(Integer.parseInt(lineparts[0]), regisur, Regisur::getId);
         try {
             if (f != null && r != null) f.setRegisur(r);
         }catch (Exception e){
