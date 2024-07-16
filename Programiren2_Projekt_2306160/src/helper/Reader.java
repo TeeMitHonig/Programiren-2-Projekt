@@ -40,7 +40,6 @@ public class Reader {
             groupnumber++;
             return;
         }
-        //TODO WAS NICHT OFFENSICHTLICH IST DOPPELTE RAUS FILTERN
         switch (groupnumber){
             case 0:
                 Schauspieler s = handleSchauspielerinput(line);
@@ -75,7 +74,6 @@ public class Reader {
         return null;
     }
 
-    //TODO EINGESCHEITESS DATUS FORMAT MAYBE
     private Filme handleFilminput(String line){
         int size;
         String[] lineparts = trimline(line);
