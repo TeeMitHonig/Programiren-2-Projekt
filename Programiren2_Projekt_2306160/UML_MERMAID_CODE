@@ -1,0 +1,80 @@
+classDiagram
+    class Filme {
+        - titel : String
+        - beschreibung : String
+        - erscheinungsDat : String
+        - id : int
+        - schauspieler : ArrayList~Schauspieler~
+        - regisur : Regisur
+        - imdbBewertungen : IMDbBewertungen
+        + Filme(titel : String, beschreibung : String, erscheinungsDat : String, id : int, imdbBewertungen : IMDbBewertungen)
+        + Filme(titel : String, beschreibung : String, erscheinungsDat : String, id : int)
+        + addBezihungSchauspieler(s1 : Schauspieler) : void
+        + getterundsetter() : void
+    }
+
+    class IMDbBewertungen {
+        - bewertung : double
+        - anzahlBewertungen : int
+        + IMDbBewertungen(bewertung : double, anzahlBewertungen : int)
+        + getterundsetter() : void
+    }
+
+    class Regisur {
+        + Regisur(name : String, id : int)
+    }
+
+    class Schauspieler {
+        - filme : ArrayList~Filme~
+        + Schauspieler(name : String, id : int)
+        + getterundsetter() : void
+    }
+
+    class Reader {
+        - groupnumber : int
+        + read(filePath : String, filme : ArrayList~Filme~, regisure : ArrayList~Regisur~, schauspieler : ArrayList~Schauspieler~) : int
+        - handleLine(line : String, schauspieler : ArrayList~Schauspieler~, filme : ArrayList~Filme~, regisur : ArrayList~Regisur~) : void
+        - handleSchauspielerinput(line : String) : Schauspieler
+        - handleFilminput(line : String) : Filme
+        - handledirctorinput(line : String) : Regisur
+        - addFilmSchauspilerbezihung(line : String, filme : ArrayList~Filme~, schauspieler : ArrayList~Schauspieler~) : void
+        - addFilmRegisurbezihung(line : String, filme : ArrayList~Filme~, regisur : ArrayList~Regisur~) : void
+        - trimline(line : String) : String[]
+    }
+
+    class Datahelper {
+        + static addIfNotDuplicate(list : ArrayList~T~, element : T, idExtractor : Function~T, ID~) : void
+        + static findByID(list : ArrayList~T~, id : ID, idExtractor : Function~T, ID~) : T
+        + static findByString(list : ArrayList~T~, value : String, stringExtractor : Function~T, String~) : T
+        + static findnetzwerk(list : ArrayList~T~, id : int, idExtractor : Function~T, ID~) : T
+        + static findSchauspilernetzwerk(list : ArrayList~T~, id : int, idExtractor : Function~T, ID~) : T
+    }
+
+    class Person {
+        - name : String
+        - id : int
+        + Person(name : String, id : int)
+        + getterundsetter() : void
+    }
+
+    class Main {
+        + static main(args : String[]) : void
+        - static filmsuche(suche : String, filme : ArrayList~Filme~) : void
+        - static schauspilersuche(suche : String, schauspielers : ArrayList~Schauspieler~) : void
+        - static showFilmnetzwerk(id : int, filmelist : ArrayList~Filme~) : void
+        - static schowSchauspilernetztwerk(id : int, schauspielerlist : ArrayList~Schauspieler~) : void
+    }
+
+    Filme       "1" --> "0,1" IMDbBewertungen
+    Filme       "1" --> "1"   Regisur
+    Filme       "n" --> "m"   Schauspieler
+    Reader      "1" --> "n"   Filme
+    Reader      "1" --> "n"   Regisur
+    Reader      "1" --> "n"   Schauspieler
+    Schauspieler <|-- Person
+    Regisur     <|-- Person
+
+    Main        "m" -->        Filme
+    Main        "m" -->        Schauspieler
+    Main        "m" -->        Regisur
+    Main        "1" -->        Reader
